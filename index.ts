@@ -17,6 +17,10 @@ let bd = {
     ]
 }
 
+app.get('/', (req: any, res: any) => {
+    res.send('hello word')
+})
+
 app.get('/customers', (req: RequestWithQuery<{ name: string }>, res: any) => {
     if (req.query?.name) {
         const customers = bd.customers
