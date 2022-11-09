@@ -3,7 +3,7 @@ import {RequestWithBody, RequestWithParams, RequestWithParamsAndBody, RequestWit
 
 const express = require('express')
 export const app = express()
-const port = 3002
+const port = process.env.PORT || 3002
 const jsonBodyMiddleWare = express.json()
 app.use(jsonBodyMiddleWare)
 
