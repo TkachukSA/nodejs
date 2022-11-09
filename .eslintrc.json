@@ -1,0 +1,135 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "legacyDecorators": true,
+            "modules": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "settings": {
+        "import/resolver": {
+            "alias": {
+                "map": [["src", "./src"]],
+                "extensions": [".ts", ".tsx", ".js", ".json", ".svg"]
+            }
+        }
+    },
+    "plugins": ["@typescript-eslint", "prettier", "simple-import-sort"],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "trailingComma": "all",
+                "arrowParens": "always",
+                "tabWidth": 4,
+                "endOfLine": "auto"
+            }
+        ],
+        "complexity": ["error", 25],
+        "sonarjs/cognitive-complexity": ["error", 25],
+        "max-lines": [
+            "error",
+            {
+                "max": 200,
+                "skipBlankLines": true,
+                "skipComments": true
+            }
+        ],
+        "no-unused-expressions": "off",
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+        "new-cap": ["off"],
+        "spaced-comment": [
+            "error",
+            "always",
+            {
+                "markers": ["#region"],
+                "exceptions": ["#endregion"]
+            }
+        ],
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        "newline-before-return": "error",
+        "no-prototype-builtins": "off",
+        "no-throw-literal": "off",
+        "prefer-promise-reject-errors": "off",
+        "no-shadow": "off",
+        "prefer-template": "error",
+        "require-await": "error",
+        "curly": "error",
+        "@typescript-eslint/ban-ts-comment": "off",
+
+
+        "no-use-before-define": "off",
+        "explicit-function-return-type": "off",
+        "@typescript-eslint/class-name-casing": "off",
+        "no-useless-constructor": "off", // see @typescript-eslint/no-useless-constructor
+        "@typescript-eslint/no-useless-constructor": "error",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "ignoreRestSiblings": true,
+                "argsIgnorePattern": "^_.*$"
+            }
+        ],
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/prefer-interface": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-object-literal-type-assertion": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
+        "unicorn/no-nested-ternary": "warn",
+        "@typescript-eslint/quotes": [
+            "error",
+            "single",
+            {
+              "avoidEscape": true,
+              "allowTemplateLiterals": true
+            }
+          ],
+          "quotes": [
+            "error",
+            "single",
+            {
+              "avoidEscape": true,
+              "allowTemplateLiterals": true
+            }
+          ],
+
+        "import/named": "off",
+        "simple-import-sort/sort": "error",
+        "import/extensions": "off",
+        "import/prefer-default-export": "off",
+        "class-methods-use-this": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-plusplus": "off",
+        "consistent-return": "off",
+        "import/no-unresolved": "off"
+    }
+}
