@@ -5,30 +5,26 @@ import {
     RequestWithQuery,
 } from '../types/appTypes';
 import { Router } from 'express';
+import { CustomerRepository } from '../repositories/customer-repository';
+import {
+    inputValidationMiddleware,
+    titleValidation,
+} from '../middlewares/input-validation-middleware';
 
 export const customersRouters = Router();
 
 customersRouters.get(
     '/',
     (req: RequestWithQuery<{ name: string }>, res: any) => {
-        if (req.query?.name) {
-            const customers = bd.customers.filter((customer) => {
-                return customer.name.indexOf(req.query?.name) > -1;
-            });
-            res.json(customers);
-
-            return;
-        }
-        res.json(bd.customers);
+        const foundCustomers = CustomerRepository.getCustomers(req.query?.name);
+        res.json(foundCustomers);
     },
 );
 
 customersRouters.get(
     '/:id',
     (req: RequestWithParams<{ id: string }>, res: any) => {
-        const currentCustomer = bd.customers.find(
-            (t) => t.id === Number(req.params.id),
-        );
+        const currentCustomer = CustomerRepository.getCustomer(req.params.id);
         if (!currentCustomer) {
             res.statusCode(404);
 
@@ -41,7 +37,10 @@ customersRouters.get(
 
 customersRouters.post(
     '/',
+    titleValidation,
+    inputValidationMiddleware,
     (req: RequestWithBody<{ name: string }>, res: any) => {
+        debugger;
         if (!req?.body?.name) {
             res.sendStatus(400);
 
@@ -68,33 +67,38 @@ customersRouters.delete(
 
 customersRouters.put(
     '/:id',
+    titleValidation,
+    inputValidationMiddleware,
     (
         req: RequestWithParamsAndBody<{ id: string }, { name: string }>,
         res: any,
     ) => {
-        if (!req.body.name) {
+        const updateCustomer = CustomerRepository.updateCustomer(
+            req.body.name,
+            req.params.id,
+        );
+        if (updateCustomer === 'noName') {
             res.sendStatus(400);
 
             return;
         }
 
-        const update = bd.customers.find((t) => t.id === +req.params.id);
-        if (!update) {
+        if (!updateCustomer) {
             res.sendStatus(404);
 
             return;
+        } else {
+            res.sendStatus(204);
         }
-        update.name = req.body.name;
-        res.sendStatus(204);
 
-        // fetch('http://localhost:3000/customers/1', {
-        //   method: 'PUT',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({name: 'aaaaaaaaaaa'}),
-        // }).then(res => res.json())
-        //     .then(res => console.log(res))
+        /* fetch('http://localhost:3000/customers/1', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({name: 'aaaaaaaaaaa'}),
+        }).then(res => res.json())
+            .then(res => console.log(res))*/
     },
 );
 

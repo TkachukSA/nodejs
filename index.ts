@@ -1,11 +1,13 @@
 import { customersRouters } from './src/routes/customers-routes';
 import { usersRouters } from './src/routes/users-routes';
-
-const express = require('express');
+import bodyParser from 'body-parser';
+import express from 'express';
 export const app = express();
 const port = process.env.PORT || 3002;
+
 const jsonBodyMiddleWare = express.json();
 app.use(jsonBodyMiddleWare);
+app.use(bodyParser());
 
 app.use('/customers', customersRouters);
 app.use('/users', usersRouters);
